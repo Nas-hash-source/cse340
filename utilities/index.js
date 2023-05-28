@@ -37,10 +37,10 @@ Util.buildClassificationGrid = async function(data) {
         grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + 'details"><img src="' + vehicle.inv_thumbnail 
-        +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-        +' on CSE Motors" /></a>'
+        +'" alt="' + vehicle.inv_make + ' ' + vehicle.inv_model 
+        +' on CSE Motors"></a>'
         grid += '<div class="namePrice">'
-        grid += '<hr />'
+        grid += '<hr>'
         grid += '<h2 class="vehicle-title">'
         grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -64,7 +64,7 @@ Util.buildInventoryDetailView = async function(vehicle) {
           vehicleDetailView = `
             <article class="detail-view-grid">
                 <div>
-                    <img class="vehicle-image" src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+                    <img class="vehicle-image" src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
                 </div>
                 <div>
                     <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>
