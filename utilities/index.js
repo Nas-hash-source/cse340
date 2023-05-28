@@ -7,7 +7,7 @@ const Util = {}
 
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
-    let list = "<ul>"
+    let list = "<ul class='navigation' id='navigation'>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
     data.rows.forEach((row) => {
         list += "<li>"
@@ -28,12 +28,12 @@ Util.getNav = async function (req, res, next) {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildClassificationGrid = async function(data){
+Util.buildClassificationGrid = async function(data) {
     let grid
     if(data.length > 0){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
-        grid += '<li>'
+        grid += '<li class="inv_display_item">'
         grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + 'details"><img src="' + vehicle.inv_thumbnail 
@@ -41,7 +41,7 @@ Util.buildClassificationGrid = async function(data){
         +' on CSE Motors" /></a>'
         grid += '<div class="namePrice">'
         grid += '<hr />'
-        grid += '<h2>'
+        grid += '<h2 class="vehicle-title">'
         grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
         + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
@@ -57,5 +57,42 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
 }
+
+Util.buildInventoryDetailView = async function(vehicle) {
+      let vehicleDetailView
+      if(vehicle) {
+          vehicleDetailView = `
+            <article class="detail-view-grid">
+                <div>
+                    <img class="vehicle-image" src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+                </div>
+                <div>
+                    <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>
+                    <p><span class="bold">Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</span></p>
+                    <p><span class="bold">Description: </span>${vehicle.inv_description}</p>
+                    <p><span class="bold">Color: </span>${vehicle.inv_color}</p>
+                    <p><span class="bold">Miles: </span>${new Intl.NumberFormat().format(vehicle.inv_miles)}</p>
+                </div>
+            </article>
+          `
+        } else { 
+          vehicleDetailView += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+        }
+        return vehicleDetailView
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+Util.returnInternalerror = fn => (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch((err) => {
+      err.status = 500;
+      next(err);
+});
+
 
 module.exports = Util

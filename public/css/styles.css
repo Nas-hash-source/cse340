@@ -7,6 +7,7 @@
 
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 10px;
 }
 
 h1 {
@@ -25,6 +26,14 @@ li {
   padding: 5px;
 }
 
+footer {
+  padding: 50px 0px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .hero-img {
   display: block;
   margin: 2em auto;
@@ -32,15 +41,54 @@ li {
   max-width: 500px;
 }
 
-.navigation {
-  background-color: #000000;
+.navbar {
   display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  padding: 0;
+}
+
+.navbar-toggle {
+  display: flex;
+  justify-content: left;
+  color: white;
+  text-align: right;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 30px;
+}
+
+.navigation {
+  display: none;
+}
+
+.navigation-flex {
+  display: flex;
+  width: 100%;
   align-items: center;
+  flex-direction: column;
   justify-content: space-evenly;
-  color: #FFFFFF;
   list-style-type: none;
   font-size: 1.3em;
   padding: 1em;
+}
+
+.navigation li {
+  width: 100%;
+  text-align: center;
+}
+
+.navigation a:hover {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.navigation a {
+  display: block;
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
 }
 
 .hero {
@@ -115,20 +163,83 @@ li {
   font-variant: small-caps;
 }
 
-@media screen and (min-width: 600px) {
+/*inventory list by classification*/
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
+  gap: 10px;
+  align-items: center;
+  padding: 0;
+}
+
+.inv_display_item {
+  padding: 5px;
+  border: 1px solid rgba(226, 215, 215, 0.699);
+  border-radius: 10%;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.479);
+  margin-bottom: 25px;
+  margin-top: 35px;
+}
+
+.inv_display_item img {
+  display: block;
+  border-radius: 10%;
+  width: 95%;
+  margin: 2px auto;
+  list-style-type: none;
+}
+
+.inv_display_item a {
+  text-decoration: none;
+  color: black;
+}
+
+.namePrice {
+  text-align: center;
+}
+
+.vehicle-title {
+  margin: 10px;
+}
+
+/*Vehicle detail view*/
+
+.vehicle-image {
+  display: block;
+  width: 95%;
+  margin: 10px auto;
+}
+
+
+@media screen and (min-width: 650px) {
   body{
     background-image: url("./../images/site/small_check.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 100vh;
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navigation {
+    padding-left: 0;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
   }
 
   #wrapper {
-    width: 90%;
+    max-width: 90%;
+    padding: 10px;
     margin: auto;
     background-color: #FFFFFF;
+    min-height: 100vh;
   }
 
-  .grid {
+  .grid, .detail-view-grid  {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2em;
