@@ -25,11 +25,32 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+
+/* ************************
+ * Constructs classification list in the add new vehicle view
+ ************************** */
+
+Util.getClassificationOptions = async function (optionSelected) {
+  let data = await invModel.getClassifications()
+  let options = "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+      options += `
+        <option 
+          value="${row.classification_id}"
+          ${row.classification_id === Number(optionSelected)? 'selected':''}
+        >
+          ${row.classification_name}
+        </option>
+      `
+  })
+  return options
+}
+
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
 Util.buildClassificationGrid = async function(data) {
-    let grid
+    let grid = ""
     if(data.length > 0){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
@@ -87,12 +108,5 @@ Util.buildInventoryDetailView = async function(vehicle) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-Util.returnInternalerror = fn => (req, res, next) =>
-    Promise.resolve(fn(req, res, next)).catch((err) => {
-      err.status = 500;
-      next(err);
-});
-
 
 module.exports = Util

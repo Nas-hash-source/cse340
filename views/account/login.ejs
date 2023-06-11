@@ -1,0 +1,30 @@
+<!--Content Heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+   </ul>
+<% } %>
+
+<div class="form-group form-group-maxwidth">
+    <form id="loginForm" action="/account/login" class="account-login" method="post">
+        <label for="account_email">Email:</label>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+        <label for="account_password">Password:</label>
+        <div class="password-group">
+            <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <span id="pswdBtn">Show</span>
+        </div>
+        <input class="login-button" type="submit" value="LOGIN">
+        <p>No account? <a class="signup-link" href="/account/registration">Sign-up</a></p>
+    </form>
+</div>

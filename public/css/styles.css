@@ -24,10 +24,110 @@ figcaption {
 
 li {
   padding: 5px;
+  list-style-type: none;
 }
 
 footer {
   padding: 50px 0px;
+}
+
+label, input {
+  display: block;
+}
+
+label {
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+input, select {
+  box-sizing: border-box;
+  height: 30px;
+  width: 100%;
+}
+
+textarea  {
+  width: 100%;
+}
+
+[type="submit"] {
+  
+  font-size: 0.7em;
+  padding: 0.5em 0.4em;
+  width: 100px;
+  border: none;
+  border-radius: 15px;
+}
+
+.login-button {
+  background-color: #FFFFFF;
+  color: darkblue;
+  margin: 10px auto;
+}
+
+.register-button {
+  background-color: darkblue;
+  color: #FFFFFF; 
+  margin: 15px 0;
+}
+
+.form-group {
+  background-color: lightblue;
+  padding: 1.5em;
+}
+
+.form-group-maxwidth {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.form-group-register {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.account-login {
+  background-color: #3b5998;
+  padding: 1em;
+  color: white;
+}
+
+.account-register {
+  border: 1px solid black;
+  max-width: 500px;
+  padding: 1.5em;
+  background-color: #FFFFFF;
+}
+
+.account-login p {
+  text-align: center;
+}
+
+.password-group {
+  position: relative;
+}
+
+.passvalidation {
+  font-size: 0.7em;
+  color: #850000;
+}
+
+#pswdBtn {
+  position: absolute;
+  right: 5px;
+  top: 15%;
+  background-color: #FFFFFF;
+  color: darkblue;
+  padding: 2px 0;
+  font-size: small;
+  width: 5em;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.signup-link {
+  color: #FFFFFF;
 }
 
 .bold {
@@ -210,6 +310,52 @@ footer {
   display: block;
   width: 95%;
   margin: 10px auto;
+}
+
+
+/* inventory form */
+
+.invalid-input {
+  outline-color: red;
+}
+
+.valid-input {
+  outline-color: green;
+}
+
+
+.notice {
+  color: #420000;
+}
+
+.success {
+  color: green;
+}
+
+.constraints {
+  display: block;
+  color: #850000;
+  font-size: 12px;
+  font-variant: small-caps;
+  margin: 10px 0;
+}
+
+.inventory-form {
+  border: 1px solid #fff;
+  margin: 10px auto; 
+  padding: 1em;
+}
+
+.inventory-submit {
+  padding: 1em;
+  margin: 10px 0;
+  width: unset;
+  height: unset;
+  cursor: pointer;
+}
+
+.inventory-submit:hover {
+  box-shadow: 3px 3px black;
 }
 
 
