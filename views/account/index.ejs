@@ -1,0 +1,23 @@
+<!--Content Heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<h2>Welcome <%= locals.firstname %></h2>
+    
+
+<p>
+    <a href="<%="/account/edit/"%>">
+        Update account information
+    </a>
+</p>
+
+<% if (locals.account_type !== "Client") { %>
+    <h3>Inventory Management</h3>
+    <p><a href="/inv/">Manage the inventory.</a></p>
+<% } %>
+    

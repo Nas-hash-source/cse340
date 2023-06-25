@@ -1,6 +1,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
 const session = require("express-session")
 const pool = require('./database/')
@@ -41,6 +42,13 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
+
+/**override render function **/
+// Override the res.render() function with the custom implementation
+app.use(utilities.overrideRenderFunction)
 
 /* ***********************
  * View Engine and Templates

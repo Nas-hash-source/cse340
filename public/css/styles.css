@@ -50,6 +50,10 @@ textarea  {
   width: 100%;
 }
 
+table {
+  margin: 25px;
+}
+
 [type="submit"] {
   
   font-size: 0.7em;
@@ -260,6 +264,7 @@ textarea  {
 }
 
 #tools {
+  display: flex;
   font-variant: small-caps;
 }
 

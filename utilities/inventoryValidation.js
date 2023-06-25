@@ -114,7 +114,7 @@ validate.checkVehicleData = async (req, res, next) => {
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
-    let classificationList = await utilities.getClassificationOptions(classification_id)
+    let classificationList = await utilities.buildClassificationList(classification_id)
     let nav = await utilities.getNav()
     res.render("inventory/addVehicle", {
       errors,
@@ -122,6 +122,52 @@ validate.checkVehicleData = async (req, res, next) => {
       nav,
       classificationList,
       classification_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_year,
+      inv_color
+    })
+    return
+  }
+  next()
+}
+
+
+/* *********************************
+* Check data and return errors or continue the vehicle update processing
+***********************************/
+validate.checkUpdateData = async (req, res, next) => {
+  const { 
+      classification_id,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color
+   } = req.body
+
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let classificationList = await utilities.buildClassificationList(classification_id)
+    let nav = await utilities.getNav()
+    res.render("inventory/editInventory", {
+      errors,
+      title: "Edit " + inv_model +" "+ inv_make,
+      nav,
+      classificationList,
+      classification_id,
+      inv_id,
       inv_make,
       inv_model,
       inv_description,
