@@ -1,0 +1,14 @@
+<!--Content Heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+
+<form action="/message/delete" method="post">
+    <p>You are about to delete your message.</p>
+    <input type="submit" value="Confirm">
+    <input type="hidden" name="message_id" value="<%= message_id %>">
+</form>
+

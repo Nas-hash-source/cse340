@@ -2,46 +2,67 @@ const express = require("express")
 const router = express.Router()
 const messageController = require("../controllers/messageController")
 const { messageRules, checkMessage, checkReply } = require("../utilities/messageValidation")
+const { checkLogin, handleErrors } = require("../utilities")
 
 
 router.get('/inbox',
-    messageController.buildInbox
+    checkLogin,
+    handleErrors(messageController.buildInbox)
 )
 
 router.get('/inbox/:messageId',
-    messageController.buildMessageById
+    checkLogin,
+    handleErrors(messageController.buildMessageById)
 )
 
 router.get('/archived',
-    messageController.buildArchive
+    checkLogin,
+    handleErrors(messageController.buildArchive)
 )
 
 router.get('/add',
-    messageController.buildCreateMessage
+    checkLogin,
+    handleErrors(messageController.buildCreateMessage)
 )
 
 router.post('/add',
+    checkLogin,
     messageRules(),
     checkMessage,
-    messageController.sendMessage
+    handleErrors(messageController.sendMessage)
 )
 
 router.get("/reply/:messageId",
-    messageController.replyMessage
+    checkLogin,
+    handleErrors(messageController.replyMessage)
 )
 
 router.post("/reply/",
+    checkLogin,
     messageRules(),
     checkReply,
-    messageController.sendReply
+    handleErrors(messageController.sendReply)
 )
 
-router.post("/markread"
+router.get("/markread/:messageId",
+    checkLogin,
+    handleErrors(messageController.markRead)
 )
 
-router.post("/archive")
+router.get("/archive/:messageId",
+    checkLogin,
+    handleErrors(messageController.markAsArchived)
+)
 
-router.post('delete')
+router.get("/delete/:messageId",
+    checkLogin,
+    handleErrors(messageController.buildDeleteconfirm)
+)
+
+router.post("/delete/",
+    checkLogin,
+    handleErrors(messageController.removeMessage)
+)
 
 
 module.exports = router

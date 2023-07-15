@@ -113,7 +113,7 @@ Util.buildMessageList = async function (data = []) {
           <td>${row.message_created}</td>
           <td><a href="/message/inbox/${row.message_id}">${row.message_subject}</a></td>
           <td>${row.full_name}</td>
-          <th>${row.message_read}</th>
+          <td>${row.message_read}</td>
       </tr>
    `
   }) 
@@ -188,9 +188,14 @@ Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 // Override the res.render() function with my customized one so that isLoggedIn will pass in each route
 Util.overrideRenderFunction = (req, res, next) => {
   const originalRender = res.render;
+  const firstname = res.locals.accountData? res.locals.accountData.account_firstname: ""
 
   res.render = (view, options, callback) => {
-    const newRender = { ...options, loggedIn: res.locals.loggedin };
+    const newRender = { 
+      ...options, 
+      loggedIn: res.locals.loggedin, 
+      firstname
+    };
     originalRender.call(res, view, newRender, callback);
   }
 

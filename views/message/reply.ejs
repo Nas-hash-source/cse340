@@ -23,15 +23,14 @@
 <form action="/message/add" method="post">
     <label for="message_to">To:</label>
     <input type="text" id="message_to" name="full_name" value="<%=locals.fullname%>" required readonly>
-    <input type="hidden" name="message_to" value="<%=locals.message_to%>" required>
+    <input type="hidden" name="message_to" value="<%=locals.message_to%>">
     <label for="message_subject">Subject:</label>
     <input 
         type="text" 
         id="message_subject" 
         name="message_subject"
-        value="<%= locals.message_subject%>""
+        value="RE: <%= locals.message_subject%>"
         required
-        readonly
     >
     
     <label for="message_body">Message:</label>
