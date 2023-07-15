@@ -3,6 +3,7 @@ require("dotenv").config()
 const bcrypt = require("bcryptjs")
 const utilities = require("../utilities")
 const accountModel = require("../models/accountModel");
+const messageModel = require("../models/messageModel")
 
 /* ****************************************
 *  Deliver login view
@@ -32,16 +33,22 @@ async function buildRegister(req, res, next) {
 *  Deliver account Management view
 * *************************************** */
 async function buildAccountManagement(req, res, next) {
-  let nav = await utilities.getNav()
+  const nav = await utilities.getNav()
+  const accountID = res.locals.accountData.account_id
   const accountDetails = await accountModel.getAccountById(
-    res.locals.accountData.account_id
+    accountID
   )
+  const unreadMessageCount = await messageModel.countUnreadMessage(accountID)
+  const unreadMessage = `
+    ${unreadMessageCount} unread ${unreadMessageCount > 1? "messages": "message"}
+  `
   res.render("account/", {
     title: "Account Management",
     nav,
     errors: null,
     firstname: accountDetails.account_firstname,
-    account_type: accountDetails.account_type
+    account_type: accountDetails.account_type,
+    unreadMessage
   })
 }
 

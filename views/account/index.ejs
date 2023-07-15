@@ -11,7 +11,7 @@
     
 
 <p>
-    <a href="<%="/account/edit/"%>">
+    <a href="/account/edit/">
         Update account information
     </a>
 </p>
@@ -20,4 +20,11 @@
     <h3>Inventory Management</h3>
     <p><a href="/inv/">Manage the inventory.</a></p>
 <% } %>
+
+<h3>Message Center</h3>
+
+<ul>
+    <li>You have <%= locals.unreadMessage %></li>
+    <li>Go to <a href="/message/inbox">Inbox</a></li>
+</ul>
     

@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
 const invModel = require("../models/inventoryModel")
+const accountModel =require("../models/accountModel")
+
 const Util = {}
 
 /* ************************
@@ -56,6 +58,69 @@ Util.buildClassificationList = async function (optionSelected=null) {
   lists+="</select>"
   return lists
 }
+
+
+/* ************************
+ * Constructs account list in the add new message view
+ ************************** */
+
+Util.buildAccountList = async function (optionSelected=null) {
+  let data = await accountModel.getAccounts()
+  let lists = `
+    <select 
+      name="message_to" 
+      id="accountList" 
+      required
+    >
+      <option value=''>Select a recipient</option>
+  `
+  data.forEach((row) => {
+      lists += `
+        <option 
+          value="${row.account_id}"
+          ${row.account_id === Number(optionSelected)? 'selected':''}
+        >
+          ${row.account_firstname} ${row.account_lastname}
+        </option>
+      `
+  })
+  lists+="</select>"
+  return lists
+}
+
+
+// Build the message items 
+Util.buildMessageList = async function (data = []) {  
+  // Set up the table 
+  let dataTable = `
+    <table>
+      <thead>
+          <tr>
+              <th>Received</th>
+              <th>Subject</th>
+              <th>From</th>
+              <th>Read</th>
+          </tr>
+      </thead>
+      <tbody> 
+  `
+  // Iterate over all messages in rows 
+  console.log(data)
+  data.forEach(function (row) { 
+ 
+   dataTable += `
+      <tr>
+          <td>${row.message_created}</td>
+          <td><a href="/message/inbox/${row.message_id}">${row.message_subject}</a></td>
+          <td>${row.full_name}</td>
+          <th>${row.message_read}</th>
+      </tr>
+   `
+  }) 
+  dataTable += '</tbody></table>'; 
+  return dataTable
+}
+
 
 /* **************************************
 * Build the classification view HTML

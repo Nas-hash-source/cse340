@@ -65,6 +65,9 @@ app.use(require("./routes/static"));
 // Intentional error route
 app.get("/trigger-error", utilities.handleErrors(errorController.throwInternalError));
 
+// Message routes
+app.use("/message", require("./routes/messageRoute"));
+
 // Account routes
 app.use("/account", require("./routes/accountRoute"));
 

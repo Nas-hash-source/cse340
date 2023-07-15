@@ -12,7 +12,6 @@ validate.loginRules = () => {
     body("account_email")
     .trim()
     .isEmail()
-    .normalizeEmail() // refer to validator.js docs
     .withMessage("Enter a valid email")
     .custom(async (account_email) => {
       const emailExists = await accountModel.checkExistingEmail(account_email)
@@ -51,7 +50,6 @@ validate.registationRules = () => {
       body("account_email")
       .trim()
       .isEmail()
-      .normalizeEmail() // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
         const emailExists = await accountModel.checkExistingEmail(account_email)
@@ -101,14 +99,15 @@ validate.updateDetailRules = () => {
     body("account_email")
     .trim()
     .isEmail()
-    .normalizeEmail() // refer to validator.js docs
     .withMessage("A valid email is required.")
     .custom(async (account_email) => {
       const emailExists = await accountModel.checkExistingEmail(account_email)
-      const email = emailExists.rows[0].account_email
-      if ( email && email!==account_email){
-        throw new Error("Email exists. Please log in or use different email")
-      }
+      if (emailExists.rowCount) {
+        const email = emailExists.rows[0].account_email
+        if ( email && email!==account_email){
+          throw new Error("Email exists. Please log in or use different email")
+        }
+    }
     })
   ]
 }
